@@ -12,17 +12,18 @@ package com.example.per2.myapplication;
 //     <version>2.8</version>
 // </dependency>
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.MediaType;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private EditText name;
@@ -43,23 +44,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void searchSong() {
-        String n = name.getText().toString();
-        String s = song.getText().toString();
-
-        String searchName = "https://api.lyrics.ovh/v1/" + n + "/" + s;
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(searchName)
-                .request(MediaType.TEXT_PLAIN_TYPE)
-                .get();
-
+//    private void searchSong() {
+//        String n = name.getText().toString();
+//        String s = song.getText().toString();
+//
+//        String searchName = "https://api.lyrics.ovh/v1/" + n + "/" + s +"";
+//        Client client = ClientBuilder.newClient();
+//        Response response = client.target(searchName)
+//                .request(MediaType.TEXT_PLAIN_TYPE)
+//                .get();
+//
 //        System.out.println("status: " + response.getStatus());
 //        System.out.println("headers: " + response.getHeaders());
 //        System.out.println("body:" + response.readEntity(String.class));
+//        ;
+//    }
 
-        Toast.makeText(this, response.getStatus(), Toast.LENGTH_SHORT).show();
+    private void searchSong(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.lyrics.ovh/v1/artist/title")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
     }
-
     private void wireWidgets() {
         name = findViewById(R.id.editText_MainActivity_name);
         song = findViewById(R.id.editText_MainActivity_song);

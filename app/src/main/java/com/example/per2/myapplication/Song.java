@@ -2,16 +2,26 @@ package com.example.per2.myapplication;
 
 public class Song {
     private String title;
-    private String artist;
+    private String lyrics;
+
     public Song(){
 
     }
+    public String getLyrics() {
+        return lyrics;
+    }
+
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
+    }
+
+
 
     @Override
     public String toString() {
         return "Song{" +
                 "title='" + title + '\'' +
-                ", artist='" + artist + '\'' +
+                ", lyrics='" + lyrics + '\'' +
                 '}';
     }
 
@@ -21,13 +31,5 @@ public class Song {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
     }
 }

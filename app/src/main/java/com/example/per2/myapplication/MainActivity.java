@@ -50,14 +50,17 @@ public class MainActivity extends AppCompatActivity {
         lyricResponseCall.enqueue(new Callback<Song>() {
             @Override
             public void onResponse(Call<Song> call, Response<Song> response) {
-                Intent Lyrics = new Intent(MainActivity.this,
-                        displayLyrics.class);
 
-                String lyrics = response.body().getLyrics().toString();
+                if (response.body() != null && !response.body().getLyrics().isEmpty()) {
+                    String lyrics = response.body().getLyrics().toString();
+                    Intent Lyrics = new Intent(MainActivity.this,
+                            displayLyrics.class);
 
-                Lyrics.putExtra(LYRICS, lyrics);
-                startActivity(Lyrics);
-
+                    Lyrics.putExtra(LYRICS, lyrics);
+                    startActivity(Lyrics);
+                }else{
+                    Toast.makeText(MainActivity.this, "Please enter a valid artist and song", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
